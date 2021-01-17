@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SongsController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    
+        Route::get('/dashboard', [SongsController::class,'index'])->name('dashboard');
+
+        Route::get('/song', [SongsController::class,'add']);
+        Route::post('/song', [SongsController::class,'create']);
+
+        Route::get('/song/{song}', [SongsController::class,'edit']);
+        Route::put('/song/{song}', [SongsController::class,'update']);
+
+
 });
